@@ -37,6 +37,14 @@
     const container = document.querySelector(".container");
     const centeredText = document.querySelector(".centered-text");
 
+    const line1 = "KC > I am not me when you are reading this.";
+    const line2 = "KC > This is an emergency escape program.";
+    const line3 = "KC > Press the enter key to start, otherwise select any other key.";
+    const line4 = "KC > If you activate it, you get a chance to modify space-time. However, success cannot be guarantee a return. I also cannot guarantee a return.";
+    const line5 = "KC > This program starts only once. Deleted after execution.";
+    const line6 = "KC > If non-execution is selected, it will be erased without starting.";
+    const line7 = "KC > READY?"
+
     function animateText(textElement) {
       const text = textElement.textContent;
       textElement.textContent = '';
@@ -58,8 +66,8 @@
       container.style.cursor = "default";
       container.removeEventListener("click", change_page);
 
-      centeredText.textContent = "Hello ! This is Kaustubh.";
-      centeredText.style.fontSize = "30px";
+      centeredText.textContent = line1+"\n"+line2+"\n"+line3+"\n"+line4+"\n"+line5+"\n"+line6+"\n"+line7;
+      centeredText.style.fontSize = "5vh";
 
       animateText(centeredText);
     }
