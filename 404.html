@@ -1,5 +1,4 @@
 <html>
-
 <head>
   <title>KC KING</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,23 +32,37 @@
   <div class="container" onclick="change_page()">
     <p class="centered-text">KAUSTUBH. C > READY?</p>
   </div>
+
+  <script>
+    const container = document.querySelector(".container");
+    const centeredText = document.querySelector(".centered-text");
+
+    function animateText(textElement) {
+      const text = textElement.textContent;
+      textElement.textContent = '';
+
+      let index = 0;
+      const interval = setInterval(function() {
+        textElement.textContent += text[index++];
+        if (index === text.length) {
+          clearInterval(interval);
+        }
+      }, 100);
+    }
+
+    function change_page() {
+      container.style.alignItems = "flex-start";
+      container.style.justifyContent = "flex-start";
+      container.style.top = "0";
+      container.style.left = "0";
+      container.style.cursor = "default";
+      container.removeEventListener("click", change_page);
+
+      centeredText.textContent = "Hello ! This is Kaustubh.";
+      centeredText.style.fontSize = "30px";
+
+      animateText(centeredText);
+    }
+  </script>
 </body>
-
-<script>
-  const container = document.querySelector(".container");
-  const centeredText = document.querySelector(".centered-text");
-
-  function change_page() {
-    container.style.alignItems = "flex-start";
-    container.style.justifyContent = "flex-start";
-    container.style.top = "0";
-    container.style.left = "0";
-    container.style.cursor = "default";
-    container.removeEventListener("click", change_page);
-
-    centeredText.textContent = "Hello ! This is Kaustubh.";
-    centeredText.style.fontSize = "30px";
-  }
-</script>
-
 </html>
