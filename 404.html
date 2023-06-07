@@ -1,32 +1,55 @@
 <html>
-  <head>
-    <title>KC KING</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-  </head>
-  <style>
-    body {
-      background-color:black;
-      color:white;
-    }
-    .container {
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
-    .centered-text {
-        text-align: center;
-        font-family: 'VT323';
-        font-size:10vh;
-        font-style: normal;
-        font-weight:lighter;
-    }
-  </style>
-  <body>
-    <div class="container">
-        <p class="centered-text">KAUSTUBH. C > READY?</p>
-    </div>
+
+<head>
+  <title>KC KING</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  .centered-text {
+    text-align: center;
+    font-family: 'VT323';
+    font-size: 10vh;
+    font-style: normal;
+    font-weight: lighter;
+  }
+</style>
+
+<body>
+  <div class="container" onclick="change_page()">
+    <p class="centered-text">KAUSTUBH. C > READY?</p>
+  </div>
 </body>
+
+<script>
+  const container = document.querySelector(".container");
+  const centeredText = document.querySelector(".centered-text");
+
+  function change_page() {
+    container.style.alignItems = "flex-start";
+    container.style.justifyContent = "flex-start";
+    container.style.top = "0";
+    container.style.left = "0";
+    container.style.cursor = "default";
+    container.removeEventListener("click", change_page);
+
+    centeredText.textContent = "Hello ! This is Kaustubh.";
+    centeredText.style.fontSize = "30px";
+  }
+</script>
+
 </html>
