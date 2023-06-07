@@ -25,44 +25,111 @@
     font-size: 10vh;
     font-style: normal;
     font-weight: lighter;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .visible {
+    opacity: 1;
+  }
+  
+  .multiline-text {
+    font-family: 'VT323';
+    font-size: 5vh;
+    line-height: 1.2;
+    white-space: pre-line;
+  }
+  
+  .red-text {
+    color: red;
   }
 </style>
 
 <body>
-  <div class="container" onclick="change_page()">
-    <p class="centered-text">KAUSTUBH. C > READY?</p>
+  <div class="container" onclick="changePage()">
+    <div class="centered-text">KAUSTUBH. C > READY?</div>
   </div>
 
   <script>
     const container = document.querySelector(".container");
     const centeredText = document.querySelector(".centered-text");
 
-    function animateText(textElement) {
-      const text = textElement.textContent;
-      textElement.textContent = '';
+    const lines = [
+      "KC > I am not me when you are reading this.",
+      "KC > This is an emergency escape program.",
+      "KC > Press the enter key to start, otherwise select any other key.",
+      "KC > If you activate it, you get a chance to modify space-time. However, success cannot be guaranteed a return. I also cannot guarantee a return.",
+      "KC > This program starts only once. Deleted after execution.",
+      "KC > If non-execution is selected, it will be erased without starting.",
+      "KC > READY?"
+    ];
 
-      let index = 0;
-      const interval = setInterval(function() {
-        textElement.textContent += text[index++];
-        if (index === text.length) {
-          clearInterval(interval);
+    let currentLineIndex = 1;
+    let isEnterPressed = false;
+    let isAreYouSureDisplayed = false;
+
+    function animateText() {
+      centeredText.classList.add("visible");
+    }
+
+    function displayImage() {
+      const img = document.createElement("img");
+      img.src = "secret.jpg";
+      img.alt = "Secret Image";
+      img.style.height = "100%";
+      container.innerHTML = "";
+      container.appendChild(img);
+    }
+
+    function displayNonExecutionMessage() {
+      container.innerHTML = '<div class="centered-text">Non-execution selected!</div>';
+    }
+
+    function displayAreYouSureMessage() {
+      centeredText.classList.add("red-text");
+      centeredText.textContent = "KC > Are you sure? (Press Enter to confirm)";
+      isEnterPressed = false;
+      isAreYouSureDisplayed = true;
+    }
+
+    function confirmAreYouSure(event) {
+      if (isAreYouSureDisplayed && event.key === "Enter") {
+        isEnterPressed = true;
+        document.removeEventListener("keypress", confirmAreYouSure);
+        changePage();
+      }
+    }
+
+    function changePage() {
+      if (isEnterPressed && currentLineIndex === lines.length) {
+        displayImage();
+        return;
+      }
+
+      if (isAreYouSureDisplayed) {
+        return;
+      }
+
+      if (currentLineIndex < lines.length) {
+        centeredText.classList.remove("red-text");
+        centeredText.classList.remove("visible");
+        centeredText.textContent = lines[currentLineIndex];
+        currentLineIndex++;
+
+        setTimeout(animateText, 500); // Delay animation after the previous line is fully visible
+      } else {
+        if (isEnterPressed) {
+          displayNonExecutionMessage();
+        } else {
+          displayAreYouSureMessage();
         }
-      }, 100);
+      }
     }
 
-    function change_page() {
-      container.style.alignItems = "flex-start";
-      container.style.justifyContent = "flex-start";
-      container.style.top = "0";
-      container.style.left = "0";
-      container.style.cursor = "default";
-      container.removeEventListener("click", change_page);
+    document.addEventListener("keypress", confirmAreYouSure);
 
-      centeredText.textContent = "Hello ! This is Kaustubh.";
-      centeredText.style.fontSize = "5vh";
-
-      animateText(centeredText);
-    }
+    // Initial animation
+    animateText();
   </script>
 </body>
 </html>
